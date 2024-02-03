@@ -25,7 +25,7 @@ public class GearLevelAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof VaultGearItem) {
-            return (VaultGearData.read(itemStack).getItemLevel() >= Integer.valueOf(level));
+            return (VaultGearData.read(itemStack).getItemLevel() >= Integer.parseInt(level));
         }
 
         return false;

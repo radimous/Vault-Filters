@@ -33,12 +33,12 @@ public class GearSuffixAttribute implements ItemAttribute {
         for (int i = 0; i < suffixes.size(); i++) {
             name = suffixes.get(i).getAttribute().getReader().getModifierName();
             if (name.equals("")) {
-                if (NumberPrefixAttribute.getName(getSuffixDisplay(i, itemStack)).equals(this.suffixname)) {
+                if (NumberPrefixAttribute.getName(getSuffixDisplay(i, itemStack, data)).equals(this.suffixname)) {
                     return true;
                 }
             }
             if (name.contains("Cloud")) {
-                if (getName(getSuffixDisplay(i, itemStack)).equals(this.suffixname)) {
+                if (getName(getSuffixDisplay(i, itemStack, data)).equals(this.suffixname)) {
                     return true;
                 }
             }
@@ -48,18 +48,16 @@ public class GearSuffixAttribute implements ItemAttribute {
 
         }
         if (this.suffixname.equals("Empty Slot")) {
-            return hasEmptySuffix(itemStack);
+            return hasEmptySuffix(data);
         }
         return false;
     }
 
-    public boolean hasEmptySuffix(ItemStack itemStack) {
-        VaultGearData data = VaultGearData.read(itemStack);
+    public boolean hasEmptySuffix(VaultGearData data) {
         List<VaultGearModifier<?>> suffixes = data.getModifiers(VaultGearModifier.AffixType.SUFFIX);
-        return suffixes.size() < getSuffixCount(itemStack);
+        return suffixes.size() < getSuffixCount(data);
     }
-    public int getSuffixCount(ItemStack itemStack) {
-        VaultGearData data =VaultGearData.read(itemStack);
+    public int getSuffixCount(VaultGearData data) {
         return data.getFirstValue(ModGearAttributes.SUFFIXES).orElse(0);
     }
     @Override
@@ -84,13 +82,13 @@ public class GearSuffixAttribute implements ItemAttribute {
                if (!suffixes.get(i).getAttribute().getReader().getModifierName().contains("Cloud")) {
                    atts.add(new GearSuffixAttribute(suffixes.get(i).getAttribute().getReader().getModifierName()));
                } else  if (!suffixes.get(i).getAttribute().getReader().getModifierName().equals("")){
-                   atts.add(new GearSuffixAttribute(getName(getSuffixDisplay(i,itemStack))));
+                   atts.add(new GearSuffixAttribute(getName(getSuffixDisplay(i,itemStack, data))));
                }
                else {
-                   atts.add(new GearPrefixAttribute(NumberPrefixAttribute.getName(getSuffixDisplay(i,itemStack))));
+                   atts.add(new GearPrefixAttribute(NumberPrefixAttribute.getName(getSuffixDisplay(i,itemStack, data))));
                }
            }
-           if (hasEmptySuffix(itemStack)) {
+           if (hasEmptySuffix(data)) {
                atts.add(new GearSuffixAttribute("Empty Slot"));
            }
        }
@@ -123,8 +121,7 @@ public class GearSuffixAttribute implements ItemAttribute {
     public Optional<MutableComponent> getDisplay(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
         return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter());
     }
-    public String getSuffixDisplay(int index, ItemStack itemStack) {
-        VaultGearData data = VaultGearData.read(itemStack);
+    public String getSuffixDisplay(int index, ItemStack itemStack, VaultGearData data) {
         VaultGearModifier modifier = data.getModifiers(VaultGearModifier.AffixType.SUFFIX).get(index);
         return (getDisplay(modifier, data, VaultGearModifier.AffixType.SUFFIX, itemStack).get().getString());
     }

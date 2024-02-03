@@ -34,7 +34,7 @@ public class GearPrefixAttribute implements ItemAttribute {
         for (int i = 0; i < prefixes.size(); i++) {
             String name = prefixes.get(i).getAttribute().getReader().getModifierName();
             if (name.equals("")) {
-                if (getName(getPrefixDisplay(i, itemStack)).equals(this.prefixname)) {
+                if (getName(getPrefixDisplay(i, itemStack, data)).equals(this.prefixname)) {
                     return true;
                 }
             }
@@ -45,18 +45,16 @@ public class GearPrefixAttribute implements ItemAttribute {
 
         }
         if (this.prefixname.equals("Empty Slot")) {
-            return hasEmptyPrefix(itemStack);
+            return hasEmptyPrefix(data);
         }
         return false;
     }
 
-    public boolean hasEmptyPrefix(ItemStack itemStack) {
-        VaultGearData data = VaultGearData.read(itemStack);
+    public boolean hasEmptyPrefix(VaultGearData data) {
         List<VaultGearModifier<?>> prefixes = data.getModifiers(VaultGearModifier.AffixType.PREFIX);
-        return prefixes.size() < getPrefixCount(itemStack);
+        return prefixes.size() < getPrefixCount(data);
     }
-    public int getPrefixCount(ItemStack itemStack) {
-        VaultGearData data =VaultGearData.read(itemStack);
+    public int getPrefixCount(VaultGearData data) {
         return data.getFirstValue(ModGearAttributes.PREFIXES).orElse(0);
     }
     @Override
@@ -82,10 +80,10 @@ public class GearPrefixAttribute implements ItemAttribute {
                    atts.add(new GearPrefixAttribute(prefixes.get(i).getAttribute().getReader().getModifierName()));
                }
                else {
-                   atts.add(new GearPrefixAttribute(getName(getPrefixDisplay(i,itemStack))));
+                   atts.add(new GearPrefixAttribute(getName(getPrefixDisplay(i,itemStack, data))));
                }
            }
-           if (hasEmptyPrefix(itemStack)) {
+           if (hasEmptyPrefix(data)) {
                atts.add(new GearPrefixAttribute("Empty Slot"));
            }
        }
@@ -111,8 +109,7 @@ public class GearPrefixAttribute implements ItemAttribute {
     public ItemAttribute readNBT(CompoundTag nbt) {
         return new GearPrefixAttribute(nbt.getString("prefix"));
     }
-    public  String getPrefixDisplay(int index, ItemStack itemStack) {
-        VaultGearData data = VaultGearData.read(itemStack);
+    public  String getPrefixDisplay(int index, ItemStack itemStack, VaultGearData data) {
         VaultGearModifier modifier = data.getModifiers(VaultGearModifier.AffixType.PREFIX).get(index);
         return (getDisplay(modifier, data, VaultGearModifier.AffixType.PREFIX, itemStack).get().getString());
     }
