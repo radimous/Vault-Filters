@@ -53,14 +53,11 @@ public class GearPrefixAttribute implements ItemAttribute {
     public boolean hasEmptyPrefix(ItemStack itemStack) {
         VaultGearData data = VaultGearData.read(itemStack);
         List<VaultGearModifier<?>> prefixes = data.getModifiers(VaultGearModifier.AffixType.PREFIX);
-        if (prefixes.size() < getPrefixCount(itemStack)) {
-            return true;
-        }
-        return false;
+        return prefixes.size() < getPrefixCount(itemStack);
     }
     public int getPrefixCount(ItemStack itemStack) {
         VaultGearData data =VaultGearData.read(itemStack);
-        return (Integer)data.getFirstValue(ModGearAttributes.PREFIXES).orElse(0);
+        return data.getFirstValue(ModGearAttributes.PREFIXES).orElse(0);
     }
     @Override
     public boolean appliesTo(ItemStack itemStack) {
@@ -125,14 +122,6 @@ public class GearPrefixAttribute implements ItemAttribute {
     public Optional<MutableComponent> getDisplay(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
 
 
-        return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter()).map((displayText) -> {
-            if (!modifier.hasGameTimeAdded()) {
-                return displayText;
-            } else {
-
-
-                return displayText;
-            }
-        });
+        return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter());
     }
 }

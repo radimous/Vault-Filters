@@ -26,9 +26,9 @@ public class LegendarySuffixAttribute implements ItemAttribute {
         VaultGearData data = VaultGearData.read(itemStack);
         List<VaultGearModifier<?>> suffixes = data.getModifiers(VaultGearModifier.AffixType.SUFFIX);
 
-        for (int i = 0; i < suffixes.size(); i++) {
-            if (suffixes.get(i).getAttribute().getReader().getModifierName().equals(this.suffixname)) {
-                if (suffixes.get(i).getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
+        for (VaultGearModifier<?> suffix : suffixes) {
+            if (suffix.getAttribute().getReader().getModifierName().equals(this.suffixname)) {
+                if (suffix.getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
                     return true;
                 }
             }
@@ -56,9 +56,9 @@ public class LegendarySuffixAttribute implements ItemAttribute {
            VaultGearData data = VaultGearData.read(itemStack);
            List<VaultGearModifier<?>> suffixes = data.getModifiers(VaultGearModifier.AffixType.SUFFIX);
 
-           for (int i = 0; i < suffixes.size(); i++) {
-               if (suffixes.get(i).getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
-                   atts.add(new LegendarySuffixAttribute(suffixes.get(i).getAttribute().getReader().getModifierName()));
+           for (VaultGearModifier<?> suffix : suffixes) {
+               if (suffix.getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
+                   atts.add(new LegendarySuffixAttribute(suffix.getAttribute().getReader().getModifierName()));
                }
            }
        }

@@ -42,8 +42,7 @@ public class GearTransmogAttribute implements ItemAttribute {
             return "BLANK";
         }
             DynamicModel<?> gearModel = ModDynamicModels.REGISTRIES.getModel(itemStack.getItem(), modelId).get();
-            Item patt7655$temp = itemStack.getItem();
-            if (patt7655$temp instanceof VaultGearItem gearItem) {
+            if (itemStack.getItem() instanceof VaultGearItem) {
                 String name = gearModel.getDisplayName();
                 if (gearModel instanceof ArmorPieceModel modelPiece) {
                     name = modelPiece.getArmorModel().getDisplayName();
@@ -61,7 +60,7 @@ public class GearTransmogAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof VaultGearItem && !(itemStack.getItem() instanceof JewelItem)) {
-            if (!GearDataCache.of(itemStack).getGearModel().isPresent()) {
+            if (GearDataCache.of(itemStack).getGearModel().isEmpty()) {
                 return false;
             }
             if (getGearTransmog(itemStack).equals("BLANK")) {
@@ -79,7 +78,7 @@ public class GearTransmogAttribute implements ItemAttribute {
 
         List<ItemAttribute> atts = new ArrayList<>();
        if (itemStack.getItem() instanceof VaultGearItem && !(itemStack.getItem() instanceof JewelItem)) {
-           if (!GearDataCache.of(itemStack).getGearModel().isPresent()) {
+           if (GearDataCache.of(itemStack).getGearModel().isEmpty()) {
               return atts;
            }
            if (getGearTransmog(itemStack).equals("BLANK")) {

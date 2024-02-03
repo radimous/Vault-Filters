@@ -31,7 +31,7 @@ public class InscriptionInstabilityAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof InscriptionItem) {
-            return (getInstability(itemStack) <= Double.valueOf(instab));
+            return (getInstability(itemStack) <= Double.parseDouble(instab));
         }
 
         return false;
@@ -54,7 +54,7 @@ public class InscriptionInstabilityAttribute implements ItemAttribute {
 
     @Override
     public Object[] getTranslationParameters() {
-        return new Object[]{String.valueOf(instab)+"%"};
+        return new Object[]{instab +"%"};
     }
 
     @Override

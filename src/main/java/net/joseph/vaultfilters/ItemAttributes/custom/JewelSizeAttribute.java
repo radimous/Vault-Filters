@@ -44,7 +44,7 @@ public class JewelSizeAttribute implements ItemAttribute {
             if (implicits.size() == 0) {
                 return false;
             }
-            return (Integer.valueOf((int) getModifierValue(getDisplay(implicits.get(0),data,VaultGearModifier.AffixType.IMPLICIT,itemStack,true).toString())) <= Integer.valueOf(size));
+            return ((int) getModifierValue(getDisplay(implicits.get(0), data, VaultGearModifier.AffixType.IMPLICIT, itemStack).toString()) <= Integer.parseInt(size));
         }
 
         return false;
@@ -60,7 +60,7 @@ public class JewelSizeAttribute implements ItemAttribute {
            if (implicits.size() == 0) {
                return atts;
            }
-           atts.add(new JewelSizeAttribute(String.valueOf(Integer.valueOf((int) getModifierValue(getDisplay(implicits.get(0),data, VaultGearModifier.AffixType.IMPLICIT, itemStack,true).toString())))));
+           atts.add(new JewelSizeAttribute(String.valueOf(Integer.valueOf((int) getModifierValue(getDisplay(implicits.get(0),data, VaultGearModifier.AffixType.IMPLICIT, itemStack).toString())))));
        }
         return atts;
     }
@@ -86,23 +86,13 @@ public class JewelSizeAttribute implements ItemAttribute {
         return new JewelSizeAttribute(nbt.getString("size"));
     }
 
-    public Optional<MutableComponent> getDisplay2(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack, boolean displayDetail) {
+    public Optional<MutableComponent> getDisplay2(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
         return Optional.ofNullable(modifier.getAttribute().getReader().getDisplay(modifier, data, type, stack));
     }
-    public Optional<MutableComponent> getDisplay(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack, boolean displayDetail) {
-        boolean isCL;
-
-        return getDisplay2(modifier, data, type, stack, displayDetail).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter()).map((displayText) -> {
-            if (!modifier.hasGameTimeAdded()) {
-                return displayText;
-            } else {
-                int showDuration = 600;
-                long added = modifier.getGameTimeAdded();
-
-                return displayText;
-            }
-        });
+    public Optional<MutableComponent> getDisplay(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
+        return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter());
     }
+    //FIXME: WTF IS THIS
     public final double getModifierValue(String modifier) {
         boolean flag = false;
         int flagint = 0;
@@ -120,7 +110,7 @@ public class JewelSizeAttribute implements ItemAttribute {
         String tempnum = String.valueOf(modifier.charAt(flagint));
         for (int i = flagint+1; i < modifier.length(); i++) {
             if (isNumber(String.valueOf(modifier.charAt(i)))) {
-                tempnum = tempnum + (String.valueOf(modifier.charAt(i)));
+                tempnum = tempnum + (modifier.charAt(i));
             } else {
                 i = 100000;
             }

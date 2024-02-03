@@ -56,14 +56,11 @@ public class GearSuffixAttribute implements ItemAttribute {
     public boolean hasEmptySuffix(ItemStack itemStack) {
         VaultGearData data = VaultGearData.read(itemStack);
         List<VaultGearModifier<?>> suffixes = data.getModifiers(VaultGearModifier.AffixType.SUFFIX);
-        if (suffixes.size() < getSuffixCount(itemStack)) {
-            return true;
-        }
-        return false;
+        return suffixes.size() < getSuffixCount(itemStack);
     }
     public int getSuffixCount(ItemStack itemStack) {
         VaultGearData data =VaultGearData.read(itemStack);
-        return (Integer)data.getFirstValue(ModGearAttributes.SUFFIXES).orElse(0);
+        return data.getFirstValue(ModGearAttributes.SUFFIXES).orElse(0);
     }
     @Override
     public boolean appliesTo(ItemStack itemStack) {
@@ -124,17 +121,7 @@ public class GearSuffixAttribute implements ItemAttribute {
         return Optional.ofNullable(modifier.getAttribute().getReader().getDisplay(modifier, data, type, stack));
     }
     public Optional<MutableComponent> getDisplay(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
-
-
-        return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter()).map((displayText) -> {
-            if (!modifier.hasGameTimeAdded()) {
-                return displayText;
-            } else {
-
-
-                return displayText;
-            }
-        });
+        return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter());
     }
     public String getSuffixDisplay(int index, ItemStack itemStack) {
         VaultGearData data = VaultGearData.read(itemStack);

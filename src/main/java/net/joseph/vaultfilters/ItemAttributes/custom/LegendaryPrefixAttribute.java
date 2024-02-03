@@ -26,9 +26,9 @@ public class LegendaryPrefixAttribute implements ItemAttribute {
         VaultGearData data = VaultGearData.read(itemStack);
         List<VaultGearModifier<?>> prefixes = data.getModifiers(VaultGearModifier.AffixType.PREFIX);
 
-        for (int i = 0; i < prefixes.size(); i++) {
-            if (prefixes.get(i).getAttribute().getReader().getModifierName().equals(this.prefixname)) {
-                if (prefixes.get(i).getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
+        for (VaultGearModifier<?> prefix : prefixes) {
+            if (prefix.getAttribute().getReader().getModifierName().equals(this.prefixname)) {
+                if (prefix.getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
                     return true;
                 }
             }
@@ -55,9 +55,9 @@ public class LegendaryPrefixAttribute implements ItemAttribute {
            VaultGearData data = VaultGearData.read(itemStack);
            List<VaultGearModifier<?>> prefixes = data.getModifiers(VaultGearModifier.AffixType.PREFIX);
 
-           for (int i = 0; i < prefixes.size(); i++) {
-               if (prefixes.get(i).getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
-                   atts.add(new LegendaryPrefixAttribute(prefixes.get(i).getAttribute().getReader().getModifierName()));
+           for (VaultGearModifier<?> prefix : prefixes) {
+               if (prefix.getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
+                   atts.add(new LegendaryPrefixAttribute(prefix.getAttribute().getReader().getModifierName()));
                }
            }
        }

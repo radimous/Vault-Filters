@@ -22,7 +22,7 @@ public class AtleastSoulAttribute implements ItemAttribute {
         return ModConfigs.VAULT_DIFFUSER.getDiffuserOutputMap().containsKey((itemStack.getItem().getRegistryName()));
     }
     public static int getSoulValue(ItemStack itemStack) {
-        return (Integer)ModConfigs.VAULT_DIFFUSER.getDiffuserOutputMap().get(itemStack.getItem().getRegistryName());
+        return ModConfigs.VAULT_DIFFUSER.getDiffuserOutputMap().get(itemStack.getItem().getRegistryName());
     }
     @Override
     public boolean appliesTo(ItemStack itemStack) {
@@ -30,7 +30,7 @@ public class AtleastSoulAttribute implements ItemAttribute {
        if (!hasSoulValue(itemStack)) {
            return false;
        }
-       return (getSoulValue(itemStack) >= Integer.valueOf(soulValue));
+       return (getSoulValue(itemStack) >= Integer.parseInt(soulValue));
     }
 
     @Override

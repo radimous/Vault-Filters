@@ -33,7 +33,7 @@ public class InscriptionTimeAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof InscriptionItem) {
-            return (getTime(itemStack) >= Integer.valueOf(time));
+            return (getTime(itemStack) >= Integer.parseInt(time));
         }
 
         return false;

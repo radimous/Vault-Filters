@@ -30,9 +30,6 @@ public class vaultfilters
         // Register the setup method for modloading
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        // Register the enqueueIMC method for modloading
-        // Register the processIMC method for modloading
-
         // Register ourselves for server and other game events we are interested in
         eventBus.addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
@@ -40,11 +37,7 @@ public class vaultfilters
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         ModItemAttributes.register();
-
     }
 
 

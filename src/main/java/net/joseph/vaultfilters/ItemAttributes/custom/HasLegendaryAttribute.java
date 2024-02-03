@@ -25,13 +25,13 @@ public class HasLegendaryAttribute implements ItemAttribute {
         List<VaultGearModifier<?>> prefixes = data.getModifiers(VaultGearModifier.AffixType.PREFIX);
         List<VaultGearModifier<?>> suffixes = data.getModifiers(VaultGearModifier.AffixType.SUFFIX);
 
-        for (int i = 0; i < prefixes.size(); i++) {
-            if (prefixes.get(i).getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
+        for (VaultGearModifier<?> prefix : prefixes) {
+            if (prefix.getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
                 return true;
             }
         }
-        for (int i = 0; i < suffixes.size(); i++) {
-            if (suffixes.get(i).getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
+        for (VaultGearModifier<?> suffix : suffixes) {
+            if (suffix.getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
                 return true;
             }
         }
@@ -52,7 +52,7 @@ public class HasLegendaryAttribute implements ItemAttribute {
     @Override
     public List<ItemAttribute> listAttributesOf(ItemStack itemStack) {
 
-        List<ItemAttribute> atts = new ArrayList<>();
+       List<ItemAttribute> atts = new ArrayList<>();
        if (itemStack.getItem() instanceof VaultGearItem) {
            if (hasLegendary(itemStack)) {
                atts.add(new HasLegendaryAttribute("legendary"));

@@ -32,7 +32,7 @@ public class JewelCutsAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof JewelItem) {
-            return (Integer.valueOf(cuts) == getcutSlots(itemStack));
+            return (Integer.parseInt(cuts) == getcutSlots(itemStack));
         }
 
         return false;

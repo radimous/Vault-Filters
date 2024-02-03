@@ -30,7 +30,7 @@ public class InscriptionCompletionAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof InscriptionItem) {
-            return (getCompletion(itemStack) >= Integer.valueOf(comp));
+            return (getCompletion(itemStack) >= Integer.parseInt(comp));
         }
 
         return false;
@@ -53,7 +53,7 @@ public class InscriptionCompletionAttribute implements ItemAttribute {
 
     @Override
     public Object[] getTranslationParameters() {
-        return new Object[]{String.valueOf(comp)+"%"};
+        return new Object[]{comp +"%"};
     }
 
     @Override

@@ -28,15 +28,7 @@ public class NumberSuffixAttribute implements ItemAttribute {
     public Optional<MutableComponent> getDisplay(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
 
 
-        return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter()).map((displayText) -> {
-            if (!modifier.hasGameTimeAdded()) {
-                return displayText;
-            } else {
-
-
-                return displayText;
-            }
-        });
+        return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter());
     }
     public String getSuffixDisplay(int index, ItemStack itemStack) {
         VaultGearData data = VaultGearData.read(itemStack);
@@ -91,7 +83,7 @@ public class NumberSuffixAttribute implements ItemAttribute {
         String tempnum = String.valueOf(modifier.charAt(flagint));
         for (int i = flagint+1; i < modifier.length(); i++) {
             if (isNumber(String.valueOf(modifier.charAt(i))) || String.valueOf(modifier.charAt(i)).equals(".")) {
-                tempnum = tempnum + (String.valueOf(modifier.charAt(i)));
+                tempnum = tempnum + (modifier.charAt(i));
             } else {
                 i = 100000;
             }
@@ -130,7 +122,7 @@ public class NumberSuffixAttribute implements ItemAttribute {
         }
         String name = "";
         for (int i = flagint; i <modifier.length(); i++) {
-            name = name + String.valueOf(modifier.charAt(i));
+            name = name + modifier.charAt(i);
         }
         return name;
     }

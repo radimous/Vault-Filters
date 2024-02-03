@@ -29,7 +29,7 @@ public class TrinketUsesAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof TrinketItem) {
-            return (getTrinketUses(itemStack) >= Integer.valueOf(uses));
+            return (getTrinketUses(itemStack) >= Integer.parseInt(uses));
         }
 
         return false;

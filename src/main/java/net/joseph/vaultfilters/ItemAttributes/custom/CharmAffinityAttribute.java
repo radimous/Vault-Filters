@@ -28,7 +28,7 @@ public class CharmAffinityAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof CharmItem && isIdentified(itemStack)) {
-            return (getCharmAffinity(itemStack) >= Integer.valueOf(this.affinity));
+            return (getCharmAffinity(itemStack) >= Integer.parseInt(this.affinity));
         }
 
         return false;
@@ -51,7 +51,7 @@ public class CharmAffinityAttribute implements ItemAttribute {
 
     @Override
     public Object[] getTranslationParameters() {
-        return new Object[]{String.valueOf(affinity)+"%"};
+        return new Object[]{affinity +"%"};
     }
 
     @Override

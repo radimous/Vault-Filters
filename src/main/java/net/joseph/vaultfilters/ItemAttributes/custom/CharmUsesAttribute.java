@@ -30,7 +30,7 @@ public class CharmUsesAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof CharmItem && isIdentified(itemStack)) {
-            return (getCharmUses(itemStack) >= Integer.valueOf(uses));
+            return (getCharmUses(itemStack) >= Integer.parseInt(uses));
         }
 
         return false;

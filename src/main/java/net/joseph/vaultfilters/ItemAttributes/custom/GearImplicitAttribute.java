@@ -26,8 +26,8 @@ public class GearImplicitAttribute implements ItemAttribute {
         VaultGearData data = VaultGearData.read(itemStack);
         List<VaultGearModifier<?>> implicits = data.getModifiers(VaultGearModifier.AffixType.IMPLICIT);
 
-        for (int i = 0; i < implicits.size(); i++) {
-            if (implicits.get(i).getAttribute().getReader().getModifierName().equals(this.implicitname)) {
+        for (VaultGearModifier<?> implicit : implicits) {
+            if (implicit.getAttribute().getReader().getModifierName().equals(this.implicitname)) {
                 return true;
             }
 
@@ -56,8 +56,8 @@ public class GearImplicitAttribute implements ItemAttribute {
            VaultGearData data = VaultGearData.read(itemStack);
            List<VaultGearModifier<?>> implicits = data.getModifiers(VaultGearModifier.AffixType.IMPLICIT);
 
-           for (int i = 0; i < implicits.size(); i++) {
-               atts.add(new GearImplicitAttribute(implicits.get(i).getAttribute().getReader().getModifierName()));
+           for (VaultGearModifier<?> implicit : implicits) {
+               atts.add(new GearImplicitAttribute(implicit.getAttribute().getReader().getModifierName()));
            }
 
        }
