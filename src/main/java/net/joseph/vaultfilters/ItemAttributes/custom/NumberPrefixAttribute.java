@@ -31,16 +31,15 @@ public class NumberPrefixAttribute implements ItemAttribute {
 
         return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter());
     }
-    public  String getPrefixDisplay(int index, ItemStack itemStack) {
-        VaultGearData data = VaultGearData.read(itemStack);
+    public  String getPrefixDisplay(int index, ItemStack itemStack, VaultGearData data) {
         VaultGearModifier modifier = data.getModifiers(VaultGearModifier.AffixType.PREFIX).get(index);
         if ((getDisplay(modifier, data, VaultGearModifier.AffixType.PREFIX, itemStack)).isEmpty()) {
             return "BLANK";
         }
         return (getDisplay(modifier, data, VaultGearModifier.AffixType.PREFIX, itemStack).get().getString());
     }
-    public int getPrefixCount(ItemStack itemStack) {
-        return VaultGearData.read(itemStack).getModifiers(VaultGearModifier.AffixType.PREFIX).size();
+    public int getPrefixCount(VaultGearData data) {
+        return data.getModifiers(VaultGearModifier.AffixType.PREFIX).size();
     }
     public static boolean isNumber(String num) {
         char c = num.charAt(0);
@@ -94,12 +93,13 @@ public class NumberPrefixAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof VaultGearItem) {
-            for (int i = 0; i < getPrefixCount(itemStack); i++) {
-                if (getPrefixDisplay(i,itemStack).equals("BLANK")) {
+            VaultGearData data = VaultGearData.read(itemStack);
+            for (int i = 0; i < getPrefixCount(data); i++) {
+                if (getPrefixDisplay(i,itemStack, data).equals("BLANK")) {
                     return false;
                 }
-                if (getName(getPrefixDisplay(i,itemStack)).equals(getName(prefixname))) {
-                    if (getModifierValue(getPrefixDisplay(i,itemStack)) >= getModifierValue(prefixname)) {
+                if (getName(getPrefixDisplay(i,itemStack, data)).equals(getName(prefixname))) {
+                    if (getModifierValue(getPrefixDisplay(i,itemStack, data)) >= getModifierValue(prefixname)) {
                         return true;
                     }
                 }
@@ -114,12 +114,13 @@ public class NumberPrefixAttribute implements ItemAttribute {
 
         List<ItemAttribute> atts = new ArrayList<>();
        if (itemStack.getItem() instanceof VaultGearItem) {
-           for (int i = 0; i < getPrefixCount(itemStack); i++) {
-               if (getPrefixDisplay(i,itemStack).equals("BLANK")) {
+           VaultGearData data = VaultGearData.read(itemStack);
+           for (int i = 0; i < getPrefixCount(data); i++) {
+               if (getPrefixDisplay(i,itemStack, data).equals("BLANK")) {
                    return atts;
                }
-               if (getModifierValue(getPrefixDisplay(i,itemStack)) != 0) {
-                   atts.add(new NumberPrefixAttribute(getPrefixDisplay(i,itemStack)));
+               if (getModifierValue(getPrefixDisplay(i,itemStack, data)) != 0) {
+                   atts.add(new NumberPrefixAttribute(getPrefixDisplay(i,itemStack, data)));
                }
            }
        }

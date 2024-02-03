@@ -31,10 +31,10 @@ public class GearPrefixAttribute implements ItemAttribute {
         VaultGearData data = VaultGearData.read(itemStack);
         List<VaultGearModifier<?>> prefixes = data.getModifiers(VaultGearModifier.AffixType.PREFIX);
 
-        for (int i = 0; i < prefixes.size(); i++) {
-            String name = prefixes.get(i).getAttribute().getReader().getModifierName();
+        for (var prefix : prefixes) {
+            String name = prefix.getAttribute().getReader().getModifierName();
             if (name.equals("")) {
-                if (getName(getPrefixDisplay(i, itemStack, data)).equals(this.prefixname)) {
+                if (getName(getPrefixDisplay(prefix, itemStack, data)).equals(this.prefixname)) {
                     return true;
                 }
             }
@@ -75,12 +75,12 @@ public class GearPrefixAttribute implements ItemAttribute {
            VaultGearData data = VaultGearData.read(itemStack);
            List<VaultGearModifier<?>> prefixes = data.getModifiers(VaultGearModifier.AffixType.PREFIX);
 
-           for (int i = 0; i < prefixes.size(); i++) {
-               if (!prefixes.get(i).getAttribute().getReader().getModifierName().equals("")) {
-                   atts.add(new GearPrefixAttribute(prefixes.get(i).getAttribute().getReader().getModifierName()));
+           for (var prefix: prefixes) {
+               if (!prefix.getAttribute().getReader().getModifierName().equals("")) {
+                   atts.add(new GearPrefixAttribute(prefix.getAttribute().getReader().getModifierName()));
                }
                else {
-                   atts.add(new GearPrefixAttribute(getName(getPrefixDisplay(i,itemStack, data))));
+                   atts.add(new GearPrefixAttribute(getName(getPrefixDisplay(prefix,itemStack, data))));
                }
            }
            if (hasEmptyPrefix(data)) {
@@ -109,8 +109,7 @@ public class GearPrefixAttribute implements ItemAttribute {
     public ItemAttribute readNBT(CompoundTag nbt) {
         return new GearPrefixAttribute(nbt.getString("prefix"));
     }
-    public  String getPrefixDisplay(int index, ItemStack itemStack, VaultGearData data) {
-        VaultGearModifier modifier = data.getModifiers(VaultGearModifier.AffixType.PREFIX).get(index);
+    public  String getPrefixDisplay(VaultGearModifier modifier, ItemStack itemStack, VaultGearData data) {
         return (getDisplay(modifier, data, VaultGearModifier.AffixType.PREFIX, itemStack).get().getString());
     }
     public Optional<MutableComponent> getDisplay2(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {

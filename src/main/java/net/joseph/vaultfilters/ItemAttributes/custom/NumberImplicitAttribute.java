@@ -31,16 +31,15 @@ public class NumberImplicitAttribute implements ItemAttribute {
 
         return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter());
     }
-    public String getImplicitDisplay(int index, ItemStack itemStack) {
-        VaultGearData data = VaultGearData.read(itemStack);
+    public String getImplicitDisplay(int index, ItemStack itemStack, VaultGearData data) {
         VaultGearModifier modifier = data.getModifiers(VaultGearModifier.AffixType.IMPLICIT).get(index);
         if ((getDisplay(modifier, data, VaultGearModifier.AffixType.IMPLICIT, itemStack)).isEmpty()) {
             return "BLANK";
         }
         return (getDisplay(modifier, data, VaultGearModifier.AffixType.IMPLICIT, itemStack).get().getString());
     }
-    public int getImplicitCount(ItemStack itemStack) {
-        return VaultGearData.read(itemStack).getModifiers(VaultGearModifier.AffixType.IMPLICIT).size();
+    public int getImplicitCount(VaultGearData data) {
+        return data.getModifiers(VaultGearModifier.AffixType.IMPLICIT).size();
     }
     public static boolean isNumber(String num) {
         char c = num.charAt(0);
@@ -94,12 +93,13 @@ public class NumberImplicitAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof VaultGearItem  && !(itemStack.getItem() instanceof JewelItem)) {
-            for (int i = 0; i < getImplicitCount(itemStack); i++) {
-                if (getImplicitDisplay(i,itemStack).equals("BLANK")) {
+            VaultGearData data = VaultGearData.read(itemStack);
+            for (int i = 0; i < getImplicitCount(data); i++) {
+                if (getImplicitDisplay(i,itemStack, data).equals("BLANK")) {
                     return false;
                 }
-                if (getName(getImplicitDisplay(i,itemStack)).equals(getName(implicitname))) {
-                    if (getModifierValue(getImplicitDisplay(i,itemStack)) >= getModifierValue(implicitname)) {
+                if (getName(getImplicitDisplay(i,itemStack, data)).equals(getName(implicitname))) {
+                    if (getModifierValue(getImplicitDisplay(i,itemStack, data)) >= getModifierValue(implicitname)) {
                         return true;
                     }
                 }
@@ -114,12 +114,13 @@ public class NumberImplicitAttribute implements ItemAttribute {
 
         List<ItemAttribute> atts = new ArrayList<>();
        if (itemStack.getItem() instanceof VaultGearItem && !(itemStack.getItem() instanceof JewelItem)) {
-           for (int i = 0; i < getImplicitCount(itemStack); i++) {
-               if (getImplicitDisplay(i,itemStack).equals("BLANK")) {
+           VaultGearData data = VaultGearData.read(itemStack);
+           for (int i = 0; i < getImplicitCount(data); i++) {
+               if (getImplicitDisplay(i,itemStack, data).equals("BLANK")) {
                    return atts;
                }
-               if (getModifierValue(getImplicitDisplay(i,itemStack)) != 0) {
-                   atts.add(new NumberImplicitAttribute(getImplicitDisplay(i,itemStack)));
+               if (getModifierValue(getImplicitDisplay(i,itemStack, data)) != 0) {
+                   atts.add(new NumberImplicitAttribute(getImplicitDisplay(i,itemStack, data)));
                }
            }
        }

@@ -30,16 +30,15 @@ public class NumberSuffixAttribute implements ItemAttribute {
 
         return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter());
     }
-    public String getSuffixDisplay(int index, ItemStack itemStack) {
-        VaultGearData data = VaultGearData.read(itemStack);
+    public String getSuffixDisplay(int index, ItemStack itemStack, VaultGearData data) {
         VaultGearModifier modifier = data.getModifiers(VaultGearModifier.AffixType.SUFFIX).get(index);
         if ((getDisplay(modifier, data, VaultGearModifier.AffixType.SUFFIX, itemStack)).isEmpty()) {
             return "BLANK";
         }
         return (getDisplay(modifier, data, VaultGearModifier.AffixType.SUFFIX, itemStack).get().getString());
     }
-    public int getSuffixCount(ItemStack itemStack) {
-        return VaultGearData.read(itemStack).getModifiers(VaultGearModifier.AffixType.SUFFIX).size();
+    public int getSuffixCount(VaultGearData data) {
+        return data.getModifiers(VaultGearModifier.AffixType.SUFFIX).size();
     }
     public static boolean isNumber(String num) {
         char c = num.charAt(0);
@@ -130,12 +129,13 @@ public class NumberSuffixAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof VaultGearItem) {
-            for (int i = 0; i < getSuffixCount(itemStack); i++) {
-                if (getSuffixDisplay(i,itemStack).equals("BLANK")) {
+            VaultGearData data = VaultGearData.read(itemStack);
+            for (int i = 0; i < getSuffixCount(data); i++) {
+                if (getSuffixDisplay(i,itemStack, data).equals("BLANK")) {
                     return false;
                 }
-                if (getName(getSuffixDisplay(i,itemStack)).equals(getName(suffixname))) {
-                    if (getModifierValue(getSuffixDisplay(i,itemStack)) >= getModifierValue(suffixname)) {
+                if (getName(getSuffixDisplay(i,itemStack, data)).equals(getName(suffixname))) {
+                    if (getModifierValue(getSuffixDisplay(i,itemStack, data)) >= getModifierValue(suffixname)) {
                         return true;
                     }
                 }
@@ -150,12 +150,13 @@ public class NumberSuffixAttribute implements ItemAttribute {
 
         List<ItemAttribute> atts = new ArrayList<>();
        if (itemStack.getItem() instanceof VaultGearItem) {
-           for (int i = 0; i < getSuffixCount(itemStack); i++) {
-               if (getSuffixDisplay(i,itemStack).equals("BLANK")) {
+              VaultGearData data = VaultGearData.read(itemStack);
+           for (int i = 0; i < getSuffixCount(data); i++) {
+               if (getSuffixDisplay(i,itemStack, data).equals("BLANK")) {
                    return atts;
                }
-               if (getModifierValue(getSuffixDisplay(i,itemStack)) != 0) {
-                   atts.add(new NumberSuffixAttribute(getSuffixDisplay(i,itemStack)));
+               if (getModifierValue(getSuffixDisplay(i,itemStack, data)) != 0) {
+                   atts.add(new NumberSuffixAttribute(getSuffixDisplay(i,itemStack, data)));
                }
            }
        }

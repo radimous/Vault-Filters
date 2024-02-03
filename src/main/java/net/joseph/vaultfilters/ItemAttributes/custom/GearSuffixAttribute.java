@@ -30,15 +30,15 @@ public class GearSuffixAttribute implements ItemAttribute {
         VaultGearData data = VaultGearData.read(itemStack);
         List<VaultGearModifier<?>> suffixes = data.getModifiers(VaultGearModifier.AffixType.SUFFIX);
         String name;
-        for (int i = 0; i < suffixes.size(); i++) {
-            name = suffixes.get(i).getAttribute().getReader().getModifierName();
+        for (var suffix : suffixes) {
+            name = suffix.getAttribute().getReader().getModifierName();
             if (name.equals("")) {
-                if (NumberPrefixAttribute.getName(getSuffixDisplay(i, itemStack, data)).equals(this.suffixname)) {
+                if (NumberPrefixAttribute.getName(getSuffixDisplay(suffix, itemStack, data)).equals(this.suffixname)) {
                     return true;
                 }
             }
             if (name.contains("Cloud")) {
-                if (getName(getSuffixDisplay(i, itemStack, data)).equals(this.suffixname)) {
+                if (getName(getSuffixDisplay(suffix, itemStack, data)).equals(this.suffixname)) {
                     return true;
                 }
             }
@@ -78,14 +78,14 @@ public class GearSuffixAttribute implements ItemAttribute {
            VaultGearData data = VaultGearData.read(itemStack);
            List<VaultGearModifier<?>> suffixes = data.getModifiers(VaultGearModifier.AffixType.SUFFIX);
 
-           for (int i = 0; i < suffixes.size(); i++) {
-               if (!suffixes.get(i).getAttribute().getReader().getModifierName().contains("Cloud")) {
-                   atts.add(new GearSuffixAttribute(suffixes.get(i).getAttribute().getReader().getModifierName()));
-               } else  if (!suffixes.get(i).getAttribute().getReader().getModifierName().equals("")){
-                   atts.add(new GearSuffixAttribute(getName(getSuffixDisplay(i,itemStack, data))));
+           for (var suffix: suffixes) {
+               if (!suffix.getAttribute().getReader().getModifierName().contains("Cloud")) {
+                   atts.add(new GearSuffixAttribute(suffix.getAttribute().getReader().getModifierName()));
+               } else  if (!suffix.getAttribute().getReader().getModifierName().equals("")){
+                   atts.add(new GearSuffixAttribute(getName(getSuffixDisplay(suffix,itemStack, data))));
                }
                else {
-                   atts.add(new GearPrefixAttribute(NumberPrefixAttribute.getName(getSuffixDisplay(i,itemStack, data))));
+                   atts.add(new GearPrefixAttribute(NumberPrefixAttribute.getName(getSuffixDisplay(suffix,itemStack, data))));
                }
            }
            if (hasEmptySuffix(data)) {
@@ -121,8 +121,7 @@ public class GearSuffixAttribute implements ItemAttribute {
     public Optional<MutableComponent> getDisplay(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
         return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter());
     }
-    public String getSuffixDisplay(int index, ItemStack itemStack, VaultGearData data) {
-        VaultGearModifier modifier = data.getModifiers(VaultGearModifier.AffixType.SUFFIX).get(index);
+    public String getSuffixDisplay(VaultGearModifier modifier, ItemStack itemStack, VaultGearData data) {
         return (getDisplay(modifier, data, VaultGearModifier.AffixType.SUFFIX, itemStack).get().getString());
     }
 }
