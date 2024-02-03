@@ -5,6 +5,7 @@ import iskallia.vault.config.InscriptionConfig;
 import iskallia.vault.gear.VaultGearHelper;
 import iskallia.vault.gear.attribute.VaultGearModifier;
 import iskallia.vault.gear.data.AttributeGearData;
+import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.gear.data.VaultGearData;
 import iskallia.vault.gear.item.VaultGearItem;
 import iskallia.vault.init.ModConfigs;
@@ -42,15 +43,14 @@ public class GearRarityAttribute implements ItemAttribute {
             return "NULL";
         }
         if (isUnidentified(itemStack)) {
-            Optional<String> optRoll = AttributeGearData.read(itemStack).getFirstValue(ModGearAttributes.GEAR_ROLL_TYPE);
-            if (optRoll.isEmpty()) {
+            String rolltype = GearDataCache.of(itemStack).getGearRollType();
+            if (rolltype == null) {
                 return "NULL";
             }
-            String rolltype = optRoll.get();
             return rolltype.substring(0, rolltype.length() - 1);
         }
-        VaultGearData data = VaultGearData.read(itemStack);
-        String tempRarity = data.getRarity().toString();
+//        VaultGearData data = VaultGearData.read(itemStack);
+        String tempRarity = GearDataCache.of(itemStack).getRarity().toString();
         return capFirst(tempRarity);
     }
     public static String capFirst(String word) {

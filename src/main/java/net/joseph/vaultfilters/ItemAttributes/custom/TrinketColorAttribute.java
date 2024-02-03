@@ -2,6 +2,8 @@ package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
 import iskallia.vault.config.TrinketConfig;
+import iskallia.vault.gear.VaultGearState;
+import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.item.gear.TrinketItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
@@ -20,7 +22,7 @@ public class TrinketColorAttribute implements ItemAttribute {
     String color;
     
     public static String getTrinketColor(ItemStack itemStack) {
-        if (!isIdentified(itemStack)) {
+        if (GearDataCache.of(itemStack).getState() != VaultGearState.IDENTIFIED) {
             return "Pink";
         }
         String identifier = getSlotIdentifier(itemStack).get();

@@ -1,6 +1,8 @@
 package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
+import iskallia.vault.gear.VaultGearState;
+import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.item.gear.CharmItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +29,7 @@ public class CharmAffinityAttribute implements ItemAttribute {
     @Override
     public boolean appliesTo(ItemStack itemStack) {
 
-        if (itemStack.getItem() instanceof CharmItem && isIdentified(itemStack)) {
+        if (itemStack.getItem() instanceof CharmItem && GearDataCache.of(itemStack).getState() == VaultGearState.IDENTIFIED) {
             return (getCharmAffinity(itemStack) >= Integer.parseInt(this.affinity));
         }
 
@@ -38,7 +40,7 @@ public class CharmAffinityAttribute implements ItemAttribute {
     public List<ItemAttribute> listAttributesOf(ItemStack itemStack) {
 
         List<ItemAttribute> atts = new ArrayList<>();
-       if (itemStack.getItem() instanceof CharmItem && isIdentified(itemStack)) {
+       if (itemStack.getItem() instanceof CharmItem && GearDataCache.of(itemStack).getState() == VaultGearState.IDENTIFIED) {
            atts.add(new CharmAffinityAttribute(String.valueOf(getCharmAffinity(itemStack))));
        }
         return atts;

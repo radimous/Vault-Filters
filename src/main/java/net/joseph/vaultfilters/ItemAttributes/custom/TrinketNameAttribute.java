@@ -2,6 +2,8 @@ package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
 import iskallia.vault.config.TrinketConfig;
+import iskallia.vault.gear.VaultGearState;
+import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.gear.data.VaultGearData;
 import iskallia.vault.gear.item.VaultGearItem;
 import iskallia.vault.init.ModItems;
@@ -39,7 +41,7 @@ public class TrinketNameAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof TrinketItem) {
-            if (!isIdentified(itemStack)) {
+            if (GearDataCache.of(itemStack).getState() != VaultGearState.IDENTIFIED) {
                 return false;
             }
             return (getTrinketName(itemStack).equals(name));
@@ -54,7 +56,7 @@ public class TrinketNameAttribute implements ItemAttribute {
 
         List<ItemAttribute> atts = new ArrayList<>();
        if (itemStack.getItem() instanceof TrinketItem) {
-           if (!isIdentified(itemStack)) {
+           if (GearDataCache.of(itemStack).getState() != VaultGearState.IDENTIFIED) {
                return atts;
            }
            atts.add(new TrinketNameAttribute(getTrinketName(itemStack)));

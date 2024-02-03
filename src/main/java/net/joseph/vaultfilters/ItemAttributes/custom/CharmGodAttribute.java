@@ -1,7 +1,9 @@
 package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
+import iskallia.vault.gear.VaultGearState;
 import iskallia.vault.gear.charm.CharmEffect;
+import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.gear.data.VaultGearData;
 import iskallia.vault.gear.item.VaultGearItem;
 import iskallia.vault.gear.reader.DecimalModifierReader;
@@ -48,7 +50,7 @@ public class CharmGodAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
 
-        if (itemStack.getItem() instanceof CharmItem && isIdentified(itemStack)) {
+        if (itemStack.getItem() instanceof CharmItem && GearDataCache.of(itemStack).getState() == VaultGearState.IDENTIFIED) {
             return (getCharmGod(itemStack).equals(god));
         }
         return false;
@@ -59,7 +61,7 @@ public class CharmGodAttribute implements ItemAttribute {
 
         List<ItemAttribute> atts = new ArrayList<>();
 
-       if (itemStack.getItem() instanceof CharmItem && isIdentified(itemStack)) {
+       if (itemStack.getItem() instanceof CharmItem && GearDataCache.of(itemStack).getState() == VaultGearState.IDENTIFIED) {
            atts.add(new CharmGodAttribute(getCharmGod(itemStack)));
        }
         return atts;

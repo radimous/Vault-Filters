@@ -1,6 +1,8 @@
 package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
+import iskallia.vault.gear.VaultGearState;
+import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.gear.data.VaultGearData;
 import iskallia.vault.gear.item.VaultGearItem;
 import iskallia.vault.item.gear.CharmItem;
@@ -29,7 +31,7 @@ public class CharmUsesAttribute implements ItemAttribute {
     @Override
     public boolean appliesTo(ItemStack itemStack) {
 
-        if (itemStack.getItem() instanceof CharmItem && isIdentified(itemStack)) {
+        if (itemStack.getItem() instanceof CharmItem && GearDataCache.of(itemStack).getState() == VaultGearState.IDENTIFIED) {
             return (getCharmUses(itemStack) >= Integer.parseInt(uses));
         }
 
@@ -40,7 +42,7 @@ public class CharmUsesAttribute implements ItemAttribute {
     public List<ItemAttribute> listAttributesOf(ItemStack itemStack) {
 
         List<ItemAttribute> atts = new ArrayList<>();
-       if (itemStack.getItem() instanceof CharmItem && isIdentified(itemStack)) {
+       if (itemStack.getItem() instanceof CharmItem && GearDataCache.of(itemStack).getState() == VaultGearState.IDENTIFIED) {
            atts.add(new CharmUsesAttribute(String.valueOf(getCharmUses(itemStack))));
        }
         return atts;

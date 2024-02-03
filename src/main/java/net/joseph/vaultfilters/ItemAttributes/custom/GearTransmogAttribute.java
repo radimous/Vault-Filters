@@ -32,6 +32,7 @@ public class GearTransmogAttribute implements ItemAttribute {
     String transmog;
     
     public static String getGearTransmog(ItemStack itemStack) {
+        //TODO: look into transmog GDC
         //return GearDataCache.of(itemStack).getGearModel().get().getNamespace();
         VaultGearData data = VaultGearData.read(itemStack);
         if (data.getFirstValue(ModGearAttributes.GEAR_MODEL).isEmpty()) {

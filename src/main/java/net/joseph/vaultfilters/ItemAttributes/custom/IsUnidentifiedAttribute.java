@@ -4,6 +4,7 @@ import com.simibubi.create.content.logistics.filter.ItemAttribute;
 import iskallia.vault.gear.VaultGearState;
 import iskallia.vault.gear.attribute.VaultGearModifier;
 import iskallia.vault.gear.data.AttributeGearData;
+import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.gear.data.VaultGearData;
 import iskallia.vault.gear.item.VaultGearItem;
 import iskallia.vault.init.ModGearAttributes;
@@ -27,16 +28,7 @@ public class IsUnidentifiedAttribute implements ItemAttribute {
     public IsUnidentifiedAttribute(String unidentified) { this.unidentified = unidentified;}
 
     public static boolean isUnidentified(ItemStack stack) {
-        if (stack.getItem() instanceof VaultGearItem) {
-            return VaultGearData.read(stack).getState() == VaultGearState.UNIDENTIFIED;
-        }
-        if (stack.getItem() instanceof TrinketItem) {
-            return !TrinketItem.isIdentified(stack);
-        }
-        if (stack.getItem() instanceof CharmItem) {
-            return !CharmItem.isIdentified(stack);
-        }
-        return false;
+        return GearDataCache.of(stack).getState() != VaultGearState.IDENTIFIED;
     }
     @Override
     public boolean appliesTo(ItemStack itemStack) {
