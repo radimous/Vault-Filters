@@ -41,53 +41,46 @@ public class NumberImplicitAttribute implements ItemAttribute {
     public int getImplicitCount(VaultGearData data) {
         return data.getModifiers(VaultGearModifier.AffixType.IMPLICIT).size();
     }
-    public static boolean isNumber(String num) {
-        char c = num.charAt(0);
-        int ascii = c;
-        if (ascii >= 48 && ascii <= 57) {
-            return true;
-        }
-        return false;
+    public static boolean isNumber(char c) {
+        return 48 <= c && c <= 57;
     }
     public static double getModifierValue(String modifier) {
-        boolean flag = false;
-        int flagint = 0;
+        boolean isNumber = false;
+        int start = 0;
         for (int i = 0; i < modifier.length(); i++) {
-            if (isNumber(String.valueOf(modifier.charAt(i)))) {
-                flag = true;
-                flagint = i;
-                i = 100000;
+            if (isNumber(modifier.charAt(i))) {
+                isNumber = true;
+                start = i;
+                break;
             }
         }
-
-        if (!flag) {
+        if (!isNumber) {
             return 0;
         }
-        String tempnum = String.valueOf(modifier.charAt(flagint));
-        for (int i = flagint+1; i < modifier.length(); i++) {
-            if (isNumber(String.valueOf(modifier.charAt(i))) || String.valueOf(modifier.charAt(i)).equals(".")) {
-                tempnum = tempnum + (modifier.charAt(i));
+        int end = 0;
+        for (int i = start + 1; i < modifier.length(); i++) {
+            if (isNumber(modifier.charAt(i)) || modifier.charAt(i) == '.') {
+                end = i;
             } else {
-                i = 100000;
+                break;
             }
         }
-        return Double.parseDouble(tempnum);
-
+        return Double.parseDouble(modifier.substring(start, end + 1));
     }
 
     public static String getName(String modifier) {
-        int flagint = 0;
+        int start = 0;
         for (int i = 0; i < modifier.length(); i++) {
             if (Character.isAlphabetic(modifier.charAt(i))) {
-                flagint = i;
-                i = 1000;
+                start = i;
+                break;
             }
         }
-        String name = "";
-        for (int i = flagint; i <modifier.length(); i++) {
-            name = name + modifier.charAt(i);
+        int end = 0;
+        for (int i = start; i <modifier.length(); i++) {
+            end = i;
         }
-        return name;
+        return modifier.substring(start, end + 1);
     }
     @Override
     public boolean appliesTo(ItemStack itemStack) {

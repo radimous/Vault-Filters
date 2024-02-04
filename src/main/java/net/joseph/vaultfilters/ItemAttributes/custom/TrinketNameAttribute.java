@@ -28,9 +28,7 @@ public class TrinketNameAttribute implements ItemAttribute {
     String name;
     
     public static String getTrinketName(ItemStack itemStack) {
-        TrinketConfig.Trinket cfg = getTrinket(itemStack).get().getTrinketConfig();
-        TextComponent cmp = new TextComponent(cfg.getName());
-        return cmp.getString();
+        return getTrinket(itemStack).get().getTrinketConfig().getName();
     }
     public TrinketNameAttribute(String name) {
         this.name = name;
