@@ -1,8 +1,6 @@
 package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
-import iskallia.vault.gear.data.VaultGearData;
-import iskallia.vault.gear.item.VaultGearItem;
 import iskallia.vault.item.tool.JewelItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;

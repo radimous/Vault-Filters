@@ -12,9 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-import static iskallia.vault.item.gear.TrinketItem.getSlotIdentifier;
-import static iskallia.vault.item.gear.TrinketItem.isIdentified;
-
 public class ItemTypeAttribute implements ItemAttribute {
 
     public static void register() {

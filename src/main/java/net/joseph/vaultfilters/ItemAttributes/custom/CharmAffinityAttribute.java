@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-import static iskallia.vault.item.gear.CharmItem.*;
+import static iskallia.vault.item.gear.CharmItem.getValue;
 
 public class CharmAffinityAttribute implements ItemAttribute {
 

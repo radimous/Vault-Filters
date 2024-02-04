@@ -2,7 +2,6 @@ package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
 import iskallia.vault.gear.data.GearDataCache;
-import iskallia.vault.gear.data.VaultGearData;
 import iskallia.vault.gear.item.VaultGearItem;
 import lv.id.bonne.vaulthunters.jewelsorting.utils.IExtraGearDataCache;
 import net.minecraft.nbt.CompoundTag;

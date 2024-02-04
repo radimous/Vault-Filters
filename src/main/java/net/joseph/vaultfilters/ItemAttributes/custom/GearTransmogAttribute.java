@@ -3,27 +3,17 @@ package net.joseph.vaultfilters.ItemAttributes.custom;
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
 import iskallia.vault.dynamodel.DynamicModel;
 import iskallia.vault.dynamodel.model.armor.ArmorPieceModel;
-import iskallia.vault.gear.VaultGearRarity;
 import iskallia.vault.gear.data.GearDataCache;
-import iskallia.vault.gear.data.VaultGearData;
 import iskallia.vault.gear.item.VaultGearItem;
-import iskallia.vault.init.ModConfigs;
 import iskallia.vault.init.ModDynamicModels;
-import iskallia.vault.init.ModGearAttributes;
 import iskallia.vault.item.tool.JewelItem;
-import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class GearTransmogAttribute implements ItemAttribute {
 

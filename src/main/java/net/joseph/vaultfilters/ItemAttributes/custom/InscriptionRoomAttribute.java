@@ -1,9 +1,6 @@
 package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
-import iskallia.vault.gear.attribute.VaultGearModifier;
-import iskallia.vault.gear.data.VaultGearData;
-import iskallia.vault.gear.item.VaultGearItem;
 import iskallia.vault.item.InscriptionItem;
 import iskallia.vault.item.data.InscriptionData;
 import net.minecraft.nbt.CompoundTag;

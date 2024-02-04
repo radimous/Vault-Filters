@@ -1,29 +1,14 @@
 package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
-import iskallia.vault.config.gear.VaultGearTierConfig;
-import iskallia.vault.gear.VaultGearHelper;
-import iskallia.vault.gear.VaultGearModifierHelper;
-import iskallia.vault.gear.attribute.VaultGearModifier;
-import iskallia.vault.gear.attribute.config.ConfigurableAttributeGenerator;
 import iskallia.vault.gear.data.GearDataCache;
-import iskallia.vault.gear.data.VaultGearData;
-import iskallia.vault.gear.item.VaultGearItem;
-import iskallia.vault.gear.reader.VaultGearModifierReader;
 import iskallia.vault.item.tool.JewelItem;
 import lv.id.bonne.vaulthunters.jewelsorting.utils.IExtraGearDataCache;
-import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class JewelSizeAttribute implements ItemAttribute {
 

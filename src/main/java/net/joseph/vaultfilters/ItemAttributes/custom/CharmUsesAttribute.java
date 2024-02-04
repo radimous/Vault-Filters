@@ -3,8 +3,6 @@ package net.joseph.vaultfilters.ItemAttributes.custom;
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
 import iskallia.vault.gear.VaultGearState;
 import iskallia.vault.gear.data.GearDataCache;
-import iskallia.vault.gear.data.VaultGearData;
-import iskallia.vault.gear.item.VaultGearItem;
 import iskallia.vault.item.gear.CharmItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -12,7 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-import static iskallia.vault.item.gear.CharmItem.*;
+import static iskallia.vault.item.gear.CharmItem.getUsedVaults;
+import static iskallia.vault.item.gear.CharmItem.getUses;
 
 public class CharmUsesAttribute implements ItemAttribute {
 

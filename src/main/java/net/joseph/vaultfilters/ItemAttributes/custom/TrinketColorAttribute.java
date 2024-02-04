@@ -1,18 +1,16 @@
 package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
-import iskallia.vault.config.TrinketConfig;
 import iskallia.vault.gear.VaultGearState;
 import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.item.gear.TrinketItem;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static iskallia.vault.item.gear.TrinketItem.*;
+import static iskallia.vault.item.gear.TrinketItem.getSlotIdentifier;
 
 public class TrinketColorAttribute implements ItemAttribute {
 
@@ -20,7 +18,7 @@ public class TrinketColorAttribute implements ItemAttribute {
         ItemAttribute.register(new TrinketColorAttribute("dummy"));
     }
     String color;
-    
+
     public static String getTrinketColor(ItemStack itemStack) {
         if (GearDataCache.of(itemStack).getState() != VaultGearState.IDENTIFIED) {
             return "Pink";

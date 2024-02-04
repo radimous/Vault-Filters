@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static net.joseph.vaultfilters.ItemAttributes.custom.NumberPrefixAttribute.getModifierValue;
 import static net.joseph.vaultfilters.ItemAttributes.custom.NumberPrefixAttribute.getName;
 
 public class GearPrefixAttribute implements ItemAttribute {

@@ -1,13 +1,12 @@
 package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
-import iskallia.vault.core.data.key.FieldKey;
 import iskallia.vault.core.world.generator.layout.ArchitectRoomEntry;
 import iskallia.vault.item.InscriptionItem;
 import iskallia.vault.item.data.InscriptionData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import iskallia.vault.core.world.generator.layout.ArchitectRoomEntry.Type;
+
 import java.util.ArrayList;
 import java.util.List;
 
