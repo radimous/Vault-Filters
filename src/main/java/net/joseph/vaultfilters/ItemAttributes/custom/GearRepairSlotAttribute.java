@@ -1,9 +1,11 @@
 package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
+import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.gear.data.VaultGearData;
 import iskallia.vault.gear.item.VaultGearItem;
 import iskallia.vault.item.tool.JewelItem;
+import net.joseph.vaultfilters.IVFGearDataCache;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
@@ -26,8 +28,9 @@ public class GearRepairSlotAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof VaultGearItem && !(itemStack.getItem() instanceof JewelItem)) {
-            VaultGearData data = VaultGearData.read(itemStack);
-            return data.getRepairSlots()-data.getUsedRepairSlots() >= Integer.parseInt(repair);
+            int repairSlots = ((IVFGearDataCache)GearDataCache.of(itemStack)).getRepairSlots();
+            int usedRepairSlots = ((IVFGearDataCache)GearDataCache.of(itemStack)).getUsedRepairSlots();
+            return repairSlots - usedRepairSlots >= Integer.parseInt(repair);
         }
 
         return false;
@@ -38,8 +41,9 @@ public class GearRepairSlotAttribute implements ItemAttribute {
 
         List<ItemAttribute> atts = new ArrayList<>();
        if (itemStack.getItem() instanceof VaultGearItem && !(itemStack.getItem() instanceof JewelItem)) {
-           VaultGearData data = VaultGearData.read(itemStack);
-           atts.add(new GearRepairSlotAttribute(String.valueOf(data.getRepairSlots()-data.getUsedRepairSlots())));
+           int repairSlots = ((IVFGearDataCache)GearDataCache.of(itemStack)).getRepairSlots();
+           int usedRepairSlots = ((IVFGearDataCache)GearDataCache.of(itemStack)).getUsedRepairSlots();
+           atts.add(new GearRepairSlotAttribute(String.valueOf(repairSlots - usedRepairSlots)));
        }
         return atts;
     }
