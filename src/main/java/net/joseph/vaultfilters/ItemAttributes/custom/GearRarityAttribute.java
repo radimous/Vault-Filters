@@ -49,7 +49,6 @@ public class GearRarityAttribute implements ItemAttribute {
             }
             return rolltype.substring(0, rolltype.length() - 1);
         }
-//        VaultGearData data = VaultGearData.read(itemStack);
         String tempRarity = GearDataCache.of(itemStack).getRarity().toString();
         return capFirst(tempRarity);
     }

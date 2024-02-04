@@ -22,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class GearTransmogAttribute implements ItemAttribute {
@@ -32,13 +33,11 @@ public class GearTransmogAttribute implements ItemAttribute {
     String transmog;
     
     public static String getGearTransmog(ItemStack itemStack) {
-        //TODO: look into transmog GDC
-        //return GearDataCache.of(itemStack).getGearModel().get().getNamespace();
-        VaultGearData data = VaultGearData.read(itemStack);
-        if (data.getFirstValue(ModGearAttributes.GEAR_MODEL).isEmpty()) {
+        Optional<ResourceLocation> model = GearDataCache.of(itemStack).getGearModel();
+        if (model.isEmpty()) {
             return "BLANK";
         }
-        ResourceLocation modelId = data.getFirstValue(ModGearAttributes.GEAR_MODEL).get();
+        ResourceLocation modelId = model.get();
         if (ModDynamicModels.REGISTRIES.getModel(itemStack.getItem(), modelId).isEmpty()) {
             return "BLANK";
         }
@@ -61,9 +60,6 @@ public class GearTransmogAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof VaultGearItem && !(itemStack.getItem() instanceof JewelItem)) {
-            if (GearDataCache.of(itemStack).getGearModel().isEmpty()) {
-                return false;
-            }
             if (getGearTransmog(itemStack).equals("BLANK")) {
                 return false;
             }
@@ -79,9 +75,6 @@ public class GearTransmogAttribute implements ItemAttribute {
 
         List<ItemAttribute> atts = new ArrayList<>();
        if (itemStack.getItem() instanceof VaultGearItem && !(itemStack.getItem() instanceof JewelItem)) {
-           if (GearDataCache.of(itemStack).getGearModel().isEmpty()) {
-              return atts;
-           }
            if (getGearTransmog(itemStack).equals("BLANK")) {
                return atts;
            }
