@@ -3,15 +3,16 @@
   "package": "net.joseph.vaultfilters.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "InscriptionDataAccessor",
-    "MixinBulkItemMatcher",
-    "MixinAttributeResearchBypass",
-    "MixinSimpleItemMatcher",
-    "MixinRSItemMatcher",
-    "MixinRSDiskMatcher",
     "ExporterNetworkNodeMixin",
-    "MixinSophItemMatcher",
-    "MixinFilterGridFilter"
+    "InscriptionDataAccessor",
+    "MixinAttributeResearchBypass",
+    "MixinBulkItemMatcher",
+    "MixinFilterGridFilter",
+    "MixinGearDataCache",
+    "MixinRSDiskMatcher",
+    "MixinRSItemMatcher",
+    "MixinSimpleItemMatcher",
+    "MixinSophItemMatcher"
   ],
   "injectors": {
     "defaultRequire": 1

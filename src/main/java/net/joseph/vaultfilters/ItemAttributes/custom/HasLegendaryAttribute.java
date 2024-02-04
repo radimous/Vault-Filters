@@ -2,8 +2,10 @@ package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
 import iskallia.vault.gear.attribute.VaultGearModifier;
+import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.gear.data.VaultGearData;
 import iskallia.vault.gear.item.VaultGearItem;
+import net.joseph.vaultfilters.IVFGearDataCache;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -21,23 +23,8 @@ public class HasLegendaryAttribute implements ItemAttribute {
     public HasLegendaryAttribute(String legendary) { this.legendary = legendary;}
 
     public static boolean hasLegendary(ItemStack itemStack) {
-        VaultGearData data = VaultGearData.read(itemStack);
-        List<VaultGearModifier<?>> prefixes = data.getModifiers(VaultGearModifier.AffixType.PREFIX);
-        List<VaultGearModifier<?>> suffixes = data.getModifiers(VaultGearModifier.AffixType.SUFFIX);
-
-        for (VaultGearModifier<?> prefix : prefixes) {
-            if (prefix.getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
-                return true;
-            }
-        }
-        for (VaultGearModifier<?> suffix : suffixes) {
-            if (suffix.getCategory() == VaultGearModifier.AffixCategory.LEGENDARY) {
-                return true;
-            }
-        }
-
-
-        return false;
+        GearDataCache gearDataCache = GearDataCache.of(itemStack);
+        return ((IVFGearDataCache) gearDataCache).hasLegendaryAttribute();
     }
     @Override
     public boolean appliesTo(ItemStack itemStack) {
