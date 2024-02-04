@@ -74,7 +74,7 @@ public class NumberSuffixAttribute implements ItemAttribute {
         if (!isNumber) {
             return 0;
         }
-        int end = 0;
+        int end = start;
         for (int i = start + 1; i < modifier.length(); i++) {
             if (isNumber(modifier.charAt(i)) || modifier.charAt(i) == '.') {
                 end = i;
