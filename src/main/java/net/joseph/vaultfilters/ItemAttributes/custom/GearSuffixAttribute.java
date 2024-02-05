@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static net.joseph.vaultfilters.AttributeHelper.getAttributeDisplay;
 import static net.joseph.vaultfilters.ItemAttributes.custom.NumberSuffixAttribute.getName;
 
 public class GearSuffixAttribute implements ItemAttribute {
@@ -33,12 +34,12 @@ public class GearSuffixAttribute implements ItemAttribute {
         for (var suffix : suffixes) {
             name = suffix.getAttribute().getReader().getModifierName();
             if (name.equals("")) {
-                if (NumberPrefixAttribute.getName(getSuffixDisplay(suffix, itemStack, data)).equals(this.suffixname)) {
+                if (getName(getAttributeDisplay(suffix, itemStack, data, VaultGearModifier.AffixType.SUFFIX)).equals(this.suffixname)) {
                     return true;
                 }
             }
             if (name.contains("Cloud")) {
-                if (getName(getSuffixDisplay(suffix, itemStack, data)).equals(this.suffixname)) {
+                if (getName(getAttributeDisplay(suffix, itemStack, data, VaultGearModifier.AffixType.SUFFIX)).equals(this.suffixname)) {
                     return true;
                 }
             }
@@ -82,10 +83,10 @@ public class GearSuffixAttribute implements ItemAttribute {
                if (!suffix.getAttribute().getReader().getModifierName().contains("Cloud")) {
                    atts.add(new GearSuffixAttribute(suffix.getAttribute().getReader().getModifierName()));
                } else  if (!suffix.getAttribute().getReader().getModifierName().equals("")){
-                   atts.add(new GearSuffixAttribute(getName(getSuffixDisplay(suffix,itemStack, data))));
+                   atts.add(new GearSuffixAttribute(getName(getAttributeDisplay(suffix,itemStack, data, VaultGearModifier.AffixType.SUFFIX))));
                }
                else {
-                   atts.add(new GearPrefixAttribute(NumberPrefixAttribute.getName(getSuffixDisplay(suffix,itemStack, data))));
+                   atts.add(new GearPrefixAttribute(getName(getAttributeDisplay(suffix,itemStack, data, VaultGearModifier.AffixType.SUFFIX))));
                }
            }
            if (hasEmptySuffix(data)) {
@@ -115,13 +116,4 @@ public class GearSuffixAttribute implements ItemAttribute {
         return new GearSuffixAttribute(nbt.getString("suffix"));
     }
 
-    public Optional<MutableComponent> getDisplay2(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
-        return Optional.ofNullable(modifier.getAttribute().getReader().getDisplay(modifier, data, type, stack));
-    }
-    public Optional<MutableComponent> getDisplay(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
-        return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter());
-    }
-    public String getSuffixDisplay(VaultGearModifier modifier, ItemStack itemStack, VaultGearData data) {
-        return (getDisplay(modifier, data, VaultGearModifier.AffixType.SUFFIX, itemStack).get().getString());
-    }
 }

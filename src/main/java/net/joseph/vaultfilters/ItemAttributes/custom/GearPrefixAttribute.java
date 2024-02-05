@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static net.joseph.vaultfilters.ItemAttributes.custom.NumberPrefixAttribute.getName;
+import static net.joseph.vaultfilters.AttributeHelper.getAttributeDisplay;
+import static net.joseph.vaultfilters.AttributeHelper.getName;
 
 public class GearPrefixAttribute implements ItemAttribute {
 
@@ -33,7 +34,7 @@ public class GearPrefixAttribute implements ItemAttribute {
         for (var prefix : prefixes) {
             String name = prefix.getAttribute().getReader().getModifierName();
             if (name.equals("")) {
-                if (getName(getPrefixDisplay(prefix, itemStack, data)).equals(this.prefixname)) {
+                if (getName(getAttributeDisplay(prefix, itemStack, data, VaultGearModifier.AffixType.PREFIX)).equals(this.prefixname)) {
                     return true;
                 }
             }
@@ -79,7 +80,7 @@ public class GearPrefixAttribute implements ItemAttribute {
                    atts.add(new GearPrefixAttribute(prefix.getAttribute().getReader().getModifierName()));
                }
                else {
-                   atts.add(new GearPrefixAttribute(getName(getPrefixDisplay(prefix,itemStack, data))));
+                   atts.add(new GearPrefixAttribute(getName(getAttributeDisplay(prefix,itemStack, data, VaultGearModifier.AffixType.PREFIX))));
                }
            }
            if (hasEmptyPrefix(data)) {
@@ -108,15 +109,5 @@ public class GearPrefixAttribute implements ItemAttribute {
     public ItemAttribute readNBT(CompoundTag nbt) {
         return new GearPrefixAttribute(nbt.getString("prefix"));
     }
-    public  String getPrefixDisplay(VaultGearModifier modifier, ItemStack itemStack, VaultGearData data) {
-        return (getDisplay(modifier, data, VaultGearModifier.AffixType.PREFIX, itemStack).get().getString());
-    }
-    public Optional<MutableComponent> getDisplay2(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
-        return Optional.ofNullable(modifier.getAttribute().getReader().getDisplay(modifier, data, type, stack));
-    }
-    public Optional<MutableComponent> getDisplay(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
 
-
-        return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter());
-    }
 }

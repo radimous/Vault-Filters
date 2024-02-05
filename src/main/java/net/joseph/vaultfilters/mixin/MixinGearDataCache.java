@@ -21,54 +21,15 @@ import java.util.function.Function;
 
 @Mixin(value = GearDataCache.class, remap = false)
 public class MixinGearDataCache implements IVFGearDataCache {
-    @Inject(
-        method = {"createCache"},
-        at = {@At(
-            value = "INVOKE",
-            target = "Liskallia/vault/gear/data/GearDataCache;getJewelColorComponents()Ljava/util/List;"
-        )},
-        locals = LocalCapture.CAPTURE_FAILSOFT
-    )
+    @Inject(method = {"createCache"}, at = @At("TAIL") ,locals = LocalCapture.CAPTURE_FAILSOFT)
     private static void extraCreateCache(ItemStack stack, CallbackInfo ci, GearDataCache cache) {
         if (stack.getItem() instanceof VaultGearItem) {
-            populateLegendaryCache(cache, stack);
+            ((IVFGearDataCache) cache).hasLegendaryAttribute();
             if (!(stack.getItem() instanceof JewelItem)) {
-                populateRepairCache(cache, stack);
+                ((IVFGearDataCache) cache).getRepairSlots();
+                ((IVFGearDataCache) cache).getUsedRepairSlots();
             }
         }
-    }
-
-    private static void populateLegendaryCache(GearDataCache cache, ItemStack itemStack) {
-        VaultGearData data = VaultGearData.read(itemStack);
-        List<VaultGearModifier<?>> affixes = new ArrayList<>();
-        affixes.addAll(data.getModifiers(VaultGearModifier.AffixType.PREFIX));
-        affixes.addAll(data.getModifiers(VaultGearModifier.AffixType.SUFFIX));
-        boolean legendaryModifier = affixes.stream().anyMatch(prefix -> prefix.getCategory() == VaultGearModifier.AffixCategory.LEGENDARY);
-        ((InvokerGearDataCache) cache)
-            .callQueryCache("VF_leg", tag -> ((ByteTag) tag).getAsByte(), ByteTag::valueOf, null, Function.identity(), stack -> legendaryModifier ? (byte) 1 : (byte) 0);
-    }
-
-    private static void populateRepairCache(GearDataCache cache, ItemStack itemStack) {
-        ((InvokerGearDataCache) cache)
-            .callQueryIntCache(
-                "VF_rep", -1, stack -> {
-                    if (stack.getItem() instanceof VaultGearItem && !(stack.getItem() instanceof JewelItem)) {
-                        VaultGearData data = VaultGearData.read(stack);
-                        return data.getRepairSlots();
-                    }
-                    return null;
-                }
-            );
-        ((InvokerGearDataCache) cache)
-            .callQueryIntCache(
-                "VF_repU", -1, stack -> {
-                    if (stack.getItem() instanceof VaultGearItem && !(stack.getItem() instanceof JewelItem)) {
-                        VaultGearData data = VaultGearData.read(stack);
-                        return data.getUsedRepairSlots();
-                    }
-                    return null;
-                }
-            );
     }
 
     @Override
