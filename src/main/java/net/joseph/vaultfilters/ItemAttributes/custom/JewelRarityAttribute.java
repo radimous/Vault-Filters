@@ -1,6 +1,7 @@
 package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
+import iskallia.vault.gear.VaultGearRarity;
 import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.item.tool.JewelItem;
 import net.minecraft.nbt.CompoundTag;
@@ -34,11 +35,11 @@ public class JewelRarityAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof JewelItem) {
-            var rarity = GearDataCache.of(itemStack).getRarity();
-            if (rarity == null) {
+            VaultGearRarity cachedRarity = GearDataCache.of(itemStack).getRarity();
+            if (cachedRarity == null) {
                 return false;
             }
-            return (rarity.toString()).equals(this.rarity);
+            return (rarityToJewel(cachedRarity.toString())).equals(rarity);
         }
         return false;
     }
