@@ -158,9 +158,9 @@ repositories {
         url "https://www.cursemaven.com"
     }
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
-    // flatDir {
-    //     dir 'libs'
-    // }
+     flatDir {
+         dir 'libs'
+     }
 }
 
 dependencies {
@@ -188,6 +188,9 @@ dependencies {
     implementation fg.deobf("curse.maven:sophisticated-core-618298:4665730")
     implementation fg.deobf("curse.maven:sophisticated-backpacks-422301:4637292")
     implementation fg.deobf("curse.maven:storage-drawers-223852:3807626")
+    implementation fg.deobf("curse.maven:lazy-dfu-forge-460819:3544496")
+    implementation fg.deobf("curse.maven:mekanism-268560:3875976")
+    implementation fg.deobf("blank:vault_hunters_jewel_sorting:2.4.0")
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
