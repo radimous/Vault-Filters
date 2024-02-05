@@ -20,7 +20,8 @@ public class JewelCutsAttribute implements ItemAttribute {
     }
 
     public static int getcutSlots(ItemStack itemStack) {
-        if (!(itemStack.getTag().contains("freeCuts"))) {
+        CompoundTag tag = itemStack.getTag();
+        if (tag == null || !tag.contains("freeCuts")) {
             return 0;
         }
         return itemStack.getTag().getInt("freeCuts");

@@ -9,17 +9,16 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Optional;
 
 public class AttributeHelper {
-    //TODO: look at the generics here
-    public static String getAttributeDisplay(VaultGearModifier modifier, ItemStack itemStack, VaultGearData data, AffixType type) {
+    public static <T>String getAttributeDisplay(VaultGearModifier<T> modifier, ItemStack itemStack, VaultGearData data, AffixType type) {
         if ((getDisplay(modifier, data, type, itemStack)).isEmpty()) {
             return "BLANK";
         }
         return (getDisplay(modifier, data, type, itemStack).get().getString());
     }
-    public static Optional<MutableComponent> getDisplay(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
+    public static <T>Optional<MutableComponent> getDisplay(VaultGearModifier<T> modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
         return getDisplay2(modifier, data, type, stack).map(VaultGearModifier.AffixCategory.NONE.getModifierFormatter());
     }
-    public static Optional<MutableComponent> getDisplay2(VaultGearModifier modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
+    public static <T>Optional<MutableComponent> getDisplay2(VaultGearModifier<T> modifier, VaultGearData data, VaultGearModifier.AffixType type, ItemStack stack) {
         return Optional.ofNullable(modifier.getAttribute().getReader().getDisplay(modifier, data, type, stack));
     }
     public static boolean isNumber(char c) {

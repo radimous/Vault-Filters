@@ -1,6 +1,7 @@
 package net.joseph.vaultfilters.ItemAttributes.custom;
 
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
+import iskallia.vault.gear.VaultGearRarity;
 import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.gear.item.VaultGearItem;
 import iskallia.vault.item.tool.JewelItem;
@@ -38,8 +39,11 @@ public class GearRarityAttribute implements ItemAttribute {
             }
             return rolltype.substring(0, rolltype.length() - 1);
         }
-        String tempRarity = GearDataCache.of(itemStack).getRarity().toString();
-        return capFirst(tempRarity);
+        VaultGearRarity rarity = GearDataCache.of(itemStack).getRarity();
+        if (rarity == null) {
+            return "NULL";
+        }
+        return capFirst(rarity.toString());
     }
     public static String capFirst(String word) {
         return word.substring(0,1).toUpperCase() + word.substring(1).toLowerCase();

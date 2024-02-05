@@ -5,6 +5,7 @@ import iskallia.vault.core.world.generator.layout.ArchitectRoomEntry;
 import iskallia.vault.item.InscriptionItem;
 import iskallia.vault.item.data.InscriptionData;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -22,7 +23,11 @@ public class InscriptionRoomTypeAttribute implements ItemAttribute {
             return "Empty";
         }
         ArchitectRoomEntry entry = data.getEntries().get(0).toRoomEntry();
-        String color = String.valueOf(entry.getName().getStyle().getColor().getValue());
+        TextColor txtColor = entry.getName().getStyle().getColor();
+        if (txtColor == null) {
+            return "Empty";
+        }
+        String color = String.valueOf(txtColor.getValue());
         if (color.equals("15769088")) {
             return "Challenge";
         }

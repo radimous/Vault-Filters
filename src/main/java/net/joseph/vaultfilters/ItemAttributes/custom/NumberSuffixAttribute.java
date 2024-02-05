@@ -6,12 +6,10 @@ import iskallia.vault.gear.data.VaultGearData;
 import iskallia.vault.gear.item.VaultGearItem;
 import net.joseph.vaultfilters.AttributeHelper;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static net.joseph.vaultfilters.AttributeHelper.getAttributeDisplay;
 

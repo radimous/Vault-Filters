@@ -34,7 +34,11 @@ public class JewelRarityAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof JewelItem) {
-            return (rarityToJewel(GearDataCache.of(itemStack).getRarity().toString()).equals(rarity));
+            var rarity = GearDataCache.of(itemStack).getRarity();
+            if (rarity == null) {
+                return false;
+            }
+            return (rarity.toString()).equals(this.rarity);
         }
         return false;
     }
@@ -44,7 +48,11 @@ public class JewelRarityAttribute implements ItemAttribute {
 
         List<ItemAttribute> atts = new ArrayList<>();
        if (itemStack.getItem() instanceof JewelItem) {
-           atts.add(new JewelRarityAttribute(rarityToJewel(GearDataCache.of(itemStack).getRarity().toString())));
+           var rarity = GearDataCache.of(itemStack).getRarity();
+           if (rarity == null) {
+              return atts;
+           }
+           atts.add(new JewelRarityAttribute(rarityToJewel(rarity.toString())));
        }
         return atts;
     }

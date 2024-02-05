@@ -20,7 +20,7 @@ public class CharmGodAttribute implements ItemAttribute {
     }
     String god;
     public static String getCharmGod(ItemStack itemStack) {
-       String tooltip = ((CharmEffect.Config)getCharm(itemStack).get().getCharmConfig().getConfig()).getAttribute().getReader().getModifierName();
+       String tooltip = ((CharmEffect.Config<?>)getCharm(itemStack).get().getCharmConfig().getConfig()).getAttribute().getReader().getModifierName();
        if (tooltip.contains("Velara")) {
            return "Velara";
        }
