@@ -27,8 +27,8 @@ public class GearRepairSlotAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof VaultGearItem && !(itemStack.getItem() instanceof JewelItem)) {
-            int repairSlots = ((IVFGearDataCache)GearDataCache.of(itemStack)).getRepairSlots();
-            int usedRepairSlots = ((IVFGearDataCache)GearDataCache.of(itemStack)).getUsedRepairSlots();
+            int repairSlots = ((IVFGearDataCache)GearDataCache.of(itemStack)).vaultfilters$getRepairSlots();
+            int usedRepairSlots = ((IVFGearDataCache)GearDataCache.of(itemStack)).vaultfilters$getUsedRepairSlots();
             return repairSlots - usedRepairSlots >= Integer.parseInt(repair);
         }
 
@@ -40,8 +40,8 @@ public class GearRepairSlotAttribute implements ItemAttribute {
 
         List<ItemAttribute> atts = new ArrayList<>();
        if (itemStack.getItem() instanceof VaultGearItem && !(itemStack.getItem() instanceof JewelItem)) {
-           int repairSlots = ((IVFGearDataCache)GearDataCache.of(itemStack)).getRepairSlots();
-           int usedRepairSlots = ((IVFGearDataCache)GearDataCache.of(itemStack)).getUsedRepairSlots();
+           int repairSlots = ((IVFGearDataCache)GearDataCache.of(itemStack)).vaultfilters$getRepairSlots();
+           int usedRepairSlots = ((IVFGearDataCache)GearDataCache.of(itemStack)).vaultfilters$getUsedRepairSlots();
            atts.add(new GearRepairSlotAttribute(String.valueOf(repairSlots - usedRepairSlots)));
        }
         return atts;

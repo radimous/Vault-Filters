@@ -3,7 +3,7 @@ package net.joseph.vaultfilters.ItemAttributes.custom;
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
 import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.gear.item.VaultGearItem;
-import lv.id.bonne.vaulthunters.jewelsorting.utils.IExtraGearDataCache;
+import net.joseph.vaultfilters.IVFGearDataCache;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
@@ -26,7 +26,7 @@ public class GearLevelAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof VaultGearItem) {
-            int gearLvl = ((IExtraGearDataCache)GearDataCache.of(itemStack)).getExtraGearLevel();
+            int gearLvl = ((IVFGearDataCache)GearDataCache.of(itemStack)).vaultfilters$getExtraGearLevel();
             return gearLvl >= Integer.parseInt(level);
         }
 
@@ -38,7 +38,7 @@ public class GearLevelAttribute implements ItemAttribute {
 
         List<ItemAttribute> atts = new ArrayList<>();
         if (itemStack.getItem() instanceof VaultGearItem) {
-            int gearLvl = ((IExtraGearDataCache)GearDataCache.of(itemStack)).getExtraGearLevel();
+            int gearLvl = ((IVFGearDataCache)GearDataCache.of(itemStack)).vaultfilters$getExtraGearLevel();
             atts.add(new GearLevelAttribute(String.valueOf(gearLvl)));
         }
         return atts;

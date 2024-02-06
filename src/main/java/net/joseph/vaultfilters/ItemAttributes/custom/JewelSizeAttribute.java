@@ -3,7 +3,7 @@ package net.joseph.vaultfilters.ItemAttributes.custom;
 import com.simibubi.create.content.logistics.filter.ItemAttribute;
 import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.item.tool.JewelItem;
-import lv.id.bonne.vaulthunters.jewelsorting.utils.IExtraGearDataCache;
+import net.joseph.vaultfilters.IVFGearDataCache;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
@@ -25,7 +25,7 @@ public class JewelSizeAttribute implements ItemAttribute {
     public boolean appliesTo(ItemStack itemStack) {
 
         if (itemStack.getItem() instanceof JewelItem) {
-            Integer jewelSize = ((IExtraGearDataCache)GearDataCache.of(itemStack)).getExtraJewelSize();
+            Integer jewelSize = ((IVFGearDataCache)GearDataCache.of(itemStack)).vaultfilters$getExtraJewelSize();
             if (jewelSize == null) {
                 return false;
             }
@@ -40,7 +40,7 @@ public class JewelSizeAttribute implements ItemAttribute {
 
         List<ItemAttribute> atts = new ArrayList<>();
         if (itemStack.getItem() instanceof JewelItem) {
-            Integer jewelSize = ((IExtraGearDataCache) GearDataCache.of(itemStack)).getExtraJewelSize();
+            Integer jewelSize = ((IVFGearDataCache) GearDataCache.of(itemStack)).vaultfilters$getExtraJewelSize();
             if (jewelSize == null) {
                 return atts;
             }

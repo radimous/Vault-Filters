@@ -21,7 +21,7 @@ public class HasLegendaryAttribute implements ItemAttribute {
 
     public static boolean hasLegendary(ItemStack itemStack) {
         GearDataCache gearDataCache = GearDataCache.of(itemStack);
-        return ((IVFGearDataCache) gearDataCache).hasLegendaryAttribute();
+        return ((IVFGearDataCache) gearDataCache).vaultfilters$hasLegendaryAttribute();
     }
     @Override
     public boolean appliesTo(ItemStack itemStack) {
