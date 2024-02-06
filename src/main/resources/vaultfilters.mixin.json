@@ -5,6 +5,7 @@
   "mixins": [
     "ExporterNetworkNodeMixin",
     "InscriptionDataAccessor",
+    "InvokerGearDataCache",
     "MixinAttributeResearchBypass",
     "MixinBulkItemMatcher",
     "MixinFilterGridFilter",

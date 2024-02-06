@@ -5,7 +5,6 @@ import iskallia.vault.gear.data.GearDataCache;
 import iskallia.vault.gear.data.VaultGearData;
 import iskallia.vault.gear.item.VaultGearItem;
 import iskallia.vault.item.tool.JewelItem;
-import lv.id.bonne.vaulthunters.jewelsorting.vaulthunters.mixin.InvokerGearDataCache;
 import net.joseph.vaultfilters.IVFGearDataCache;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.world.item.ItemStack;
