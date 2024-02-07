@@ -10,6 +10,7 @@
     "MixinBulkItemMatcher",
     "MixinFilterGridFilter",
     "MixinGearDataCache",
+    "MixinItemGridHandler",
     "MixinRSDiskMatcher",
     "MixinRSItemMatcher",
     "MixinSimpleItemMatcher",
