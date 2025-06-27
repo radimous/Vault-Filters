@@ -35,6 +35,9 @@
   "create.item_attributes.soulbound_base": "has Soulbound as a base attribute",
   "create.item_attributes.soulbound_base.inverted": "doesn't have Soulbound as a base attribute",
 
+  "create.item_attributes.has_living": "has Living as a base attribute",
+  "create.item_attributes.has_living.inverted": "doesn't have Living as a base attribute",
+
   "create.item_attributes.tool_material": "is a \"%1$s\" vault tool",
   "create.item_attributes.tool_material.inverted": "is not a \"%1$s\" vault tool",
 
@@ -240,6 +243,9 @@
 
   "create.item_attributes.bag_empty": "is an empty bag",
   "create.item_attributes.bag_empty.inverted": "is not an empty bag",
+
+  "create.item_attributes.antique_name": "is a \"%1$s\" Antique",
+  "create.item_attributes.antique_name.inverted": "isn't a \"%1$s\" Antique",
 
   "item.create.filter.tooltip.summary": "_Matches items_ against a collection of _items_ or _other filters_ (Attribute and List filters). Can be used in _Filter Slots_ of some mods (Create, RS, MR, AE2 and Backpacks by default)",
   "item.create.filter.tooltip.condition1": "When R-Clicked",
