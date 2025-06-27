@@ -3,6 +3,7 @@ package net.joseph.vaultfilters;
 import com.mojang.logging.LogUtils;
 import net.joseph.vaultfilters.attributes.abstracts.Objects.Modifier;
 import net.joseph.vaultfilters.attributes.affix.*;
+import net.joseph.vaultfilters.attributes.antique.AntiqueNameAttribute;
 import net.joseph.vaultfilters.attributes.artifact.ArtifactIDAttribute;
 import net.joseph.vaultfilters.attributes.backpacks.IsEmptyAttribute;
 
@@ -94,6 +95,7 @@ public class VaultFilters {
         new PotentialCurrentAttribute(255).register(PotentialCurrentAttribute::new);
         new PotentialMaxAttribute(256).register(PotentialMaxAttribute::new);
         new HasSoulboundAttribute(true).register(HasSoulboundAttribute::new);
+        new HasLivingAttribute(true).register(HasLivingAttribute::new);
 
         // Jewel Pouches
         new JewelPouchOpenedAttribute(true).register(JewelPouchOpenedAttribute::new);
@@ -184,6 +186,9 @@ public class VaultFilters {
 
         //Scav
         new IsRottenScavAttribute(true).register(IsRottenScavAttribute::new);
+
+        // Antique
+        new AntiqueNameAttribute("Acquired taste").register(AntiqueNameAttribute::new);
 
         //Old
         new InscriptionTimeAttribute(0).register(InscriptionTimeAttribute::new);
